@@ -1,24 +1,37 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 export function useAntiCheatDetection() {
   const [isMouseOutAlertOpen, setIsMouseOutAlertOpen] = useState(false)
 
-  // 마우스가 창을 벗어났을 때 경고를 표시하는 useEffect
-  useEffect(() => {
-    const handleMouseOut = (event: MouseEvent) => {
-      // event.relatedTarget이 null이면 마우스가 창 밖으로 나간 것으로 간주
-      if (event.relatedTarget === null && !document.hidden) {
-        setIsMouseOutAlertOpen(true)
-      }
-    }
+  // useEffect(() => {
+  //   const handleMouseOut = (event: MouseEvent) => {
+  //     // 창 밖으로 나간 경우 4초 후 알림
+  //     if (event.relatedTarget === null && !document.hidden) {
+  //       timeoutRef.current = setTimeout(() => {
+  //         setIsMouseOutAlertOpen(true)
+  //       }, 4000)
+  //     }
+  //   }
 
-    // document.documentElement에 이벤트 리스너를 추가하여 전체 창을 감지
-    document.documentElement.addEventListener('mouseout', handleMouseOut)
+  //   const handleMouseOver = () => {
+  //     // 창 안으로 돌아오면 알림 취소
+  //     if (timeoutRef.current) {
+  //       clearTimeout(timeoutRef.current)
+  //       timeoutRef.current = null
+  //     }
+  //   }
 
-    return () => {
-      document.documentElement.removeEventListener('mouseout', handleMouseOut)
-    }
-  }, [])
+  //   document.documentElement.addEventListener('mouseout', handleMouseOut)
+  //   document.documentElement.addEventListener('mouseover', handleMouseOver)
+
+  //   return () => {
+  //     document.documentElement.removeEventListener('mouseout', handleMouseOut)
+  //     document.documentElement.removeEventListener('mouseover', handleMouseOver)
+  //     if (timeoutRef.current) {
+  //       clearTimeout(timeoutRef.current)
+  //     }
+  //   }
+  // }, [])
 
   return {
     isMouseOutAlertOpen,
